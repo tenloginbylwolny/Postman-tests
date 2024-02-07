@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "XX",
+		"name": "PIN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "X"
+	},
+	"item": [
+		{
+			"name": "Check status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"//console.log(response.scanned);\r",
+							"\r",
+							"pm.test(\"Scanned status is true\", function () {\r",
+							"    pm.expect(response.scanned).is.equal(\"true\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"cph_url\", \"XX\");\r",
+							"pm.collectionVariables.set(\"auth\", \"XXX");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true"
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart\": [\n        {\n            \"products\": [\n                {\n                    \"availableLayouts\": [\n                        {\n                            \"id\": \"BJUb6tzVWWm\",\n                            \"title\": \"Photoprint\"\n                        }\n                    ],\n                    \"order\": \"0\",\n                    \"type\": \"photo\",\n                    \"id\": \"H1ZCYMEWZQ\",\n                    \"formats\": [\n                        {\n                            \"id\": \"10x15\",\n                            \"displayString\": \"10x15\"\n                        },\n                        {\n                            \"id\": \"15x15\",\n                            \"displayString\": \"15x15\"\n                        },\n                        {\n                            \"id\": \"15x20\",\n                            \"displayString\": \"15x20\"\n                        }\n                    ],\n                    \"bundleSize\": 1,\n                    \"plu\": \"\",\n                    \"version\": \"1.0.0\",\n                    \"active\": true,\n                    \"surface\": \"glossy\",\n                    \"priceObj\": {\n                        \"id\": \"rkWAtMVWZX\",\n                        \"product\": \"H1ZCYMEWZQ\",\n                        \"price\": \"0.29\"\n                    },\n                    \"layout\": {\n                        \"id\": \"BJUb6tzVWWm\",\n                        \"rotate\": false\n                    },\n                    \"quantity\": 1,\n                    \"printed\": 0,\n                    \"uid\": \"LpFMy5XobK\",\n                    \"cartItemId\": \"VteTcoIMVj\",\n                    \"subIndex\": 0,\n                    \"renderFinished\": false\n                }\n            ],\n            \"sourceList\": [\n                {\n                    \"filename\": \"5v-22mpff.png\",\n                    \"size\": 5948\n                }\n            ],\n            \"prodid\": \"5v-22mpff.png-newprodid\"\n        }\n    ],\n    \"trackerData\": {\n        \"actions\": [\n            {\n                \"name\": \"Product group selected\",\n                \"value\": \"photo\"\n            },\n            {\n                \"name\": \"Layout selected\",\n                \"value\": \"BJUb6tzVWWm\"\n            },\n            {\n                \"name\": \"Files chosen\",\n                \"value\": 1\n            }\n        ],\n        \"routesVisited\": [\n            {\n                \"name\": \"Route change\",\n                \"value\": \"selectproductgroup\"\n            },\n            {\n                \"name\": \"Route change\",\n                \"value\": \"selectproduct\"\n            },\n            {\n                \"name\": \"Route change\",\n                \"value\": \"filelist\"\n            },\n            {\n                \"name\": \"Route change\",\n                \"value\": \"cart\"\n            },\n            {\n                \"name\": \"Route change\",\n                \"value\": \"upload\"\n            }\n        ],\n        \"userData\": {\n            \"ua\": \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0\",\n            \"browser\": {\n                \"name\": \"Firefox\",\n                \"version\": \"79.0\",\n                \"major\": \"79\"\n            },\n            \"engine\": {\n                \"version\": \"79.0\",\n                \"name\": \"Gecko\"\n            },\n            \"os\": {\n                \"name\": \"Ubuntu\"\n            },\n            \"device\": {},\n            \"cpu\": {\n                \"architecture\": \"amd64\"\n            }\n        }\n    },\n    \"order\": {\n        \"prints\": [],\n        \"renders\": {},\n        \"totalPrints\": 0,\n        \"totalRenders\": 0,\n        \"allRendersFinished\": false,\n        \"allPrintsFinished\": false,\n        \"scanned\": false\n    },\n    \"volume\": 0.005672454833984375,\n    \"timestamp\": \"2022-09-15T12:49:33.000+02:00\",\n    \"expirationDate\": \"2022-09-17T10:49:33.443Z\",\n    \"headers\": {\n        \"xmodel\": \"\",\n        \"xpcs\": \"\",\n        \"xversion\": \"\",\n        \"userAgent\": \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:79.0) Gecko/20100101 Firefox/79.0\",\n        \"xManufacturer\": \"\",\n        \"xSerialNumber\": \"\",\n        \"xIP\": \"\"\n    },\n    \"context\": \"400fa832-b38c-4ccc-9727-4a9b866d66b1\",\n    \"id\": \"eada5728-bda9-4f72-85ea-2fd1dc3fb41f\",\n    \"isValid\": true\n}"
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/ordermanager/order/{{ID}}/status",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						"{{cph_url}}"
+					],
+					"path": [
+						"ordermanager",
+						"order",
+						"{{ID}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET po ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"pin\", pm.response[0].pin);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "a9948600-2349-11eb-a952-e302f39ea476"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/ordermanager/order/{{ID}}",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						"{{cph_url}}"
+					],
+					"path": [
+						"ordermanager",
+						"order",
+						"{{ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET po PIN",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "a9948600-2349-11eb-a952-e302f39ea476"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/ordermanager/order/pin/127229",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						"{{cph_url}}"
+					],
+					"path": [
+						"ordermanager",
+						"order",
+						"pin",
+						"127229"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Photo preview",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "a9948600-2349-11eb-a952-e302f39ea476"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": "/C:/Users/marcin.jakubow/Downloads/f64e54ad1a5d564948df3df89bdfa30f,1000,1000,1,0.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https:/{{env}}.{{cph_url}}/coldstorage/store/0B4l5R2FOF",
+					"host": [
+						"https"
+					],
+					"port": "",
+					"path": [
+						"{{env}}.{{cph_url}}",
+						"coldstorage",
+						"store",
+						"0B4l5R2FOF"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set up PIN/stripe in noid store",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "pl,en-US;q=0.7,en;q=0.3"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Origin",
+						"value": "https://{{env}}.{{cph_url}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "https://{{env}}.{{cph_url}}/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "TE",
+						"value": "trailers"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\":\"a9948600-2349-11eb-a952-e302f39ea476\",\r\n    \"PaymentType\":\"stripe\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/payments/context",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						"{{cph_url}}"
+					],
+					"path": [
+						"payments",
+						"context"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set up PIN/stripe in noid store Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "pl,en-US;q=0.7,en;q=0.3"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=utf-8"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Origin",
+						"value": "https://{{env}}.{{cph_url}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "https://{{env}}.{{cph_url}}/"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-site"
+					},
+					{
+						"key": "TE",
+						"value": "trailers"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"context\":\"a9948600-2349-11eb-a952-e302f39ea476\",\r\n    \"PaymentType\":\"stripe\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/payments/context",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						"{{cph_url}}"
+					],
+					"path": [
+						"payments",
+						"context"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "cph_url",
+			"value": ""
+		}
+	]
+}
