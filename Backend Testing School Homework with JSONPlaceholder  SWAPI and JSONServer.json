@@ -1,0 +1,766 @@
+{
+	"info": {
+		"_postman_id": "010813ed-faba-49ed-8263-25b08cb36325",
+		"name": "Zadanie domowe STB Modul 3 Postman jsonplaceholder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16715649"
+	},
+	"item": [
+		{
+			"name": "Search for typed username and save its ID to global variable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"pm.globals.set(\"user_id_homework\", response[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users?username=Antonette",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "Antonette"
+						}
+					]
+				},
+				"description": "Request szuka konkretnego użytkownika, bazując na query param 'name'.\nZapisuje ID użytkownika do zmiennej globalnej 'user_id_homework'"
+			},
+			"response": []
+		},
+		{
+			"name": "Add todo task to user from previous request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"userId\": {{user_id_homework}},\n        \"title\": \"zjesc kremowke\",\n        \"completed\": false\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/todos",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"todos"
+					]
+				},
+				"description": "Request dodaje zadanie do listy todo dla usera z ID z poprzedniego requesta."
+			},
+			"response": []
+		},
+		{
+			"name": "Star Wars API - Check count",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(response.count).to.equal(82);",
+							"});",
+							"pm.test(\"Count is not empty\", function () {",
+							"    pm.expect(response.count).to.not.equal('');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/people",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Star Wars API - Check search results",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(response.count).to.equal(1);",
+							"});",
+							"pm.test(\"Films array contains 4 elements\", function () {",
+							"    pm.expect(response.results[0].films.length).to.be.equal(4);",
+							"});",
+							"",
+							"console.log(response.results[0].films);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/people?search=luke",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						"people"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "luke"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Read bugs, check if response is an array, check number of already reported issues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(response).to.be.an('array');",
+							"});",
+							"",
+							"pm.test(\"Response contains 4 issues reported\", function () {",
+							"    pm.expect(response.length).to.be.equal(4);",
+							"});",
+							"",
+							"// console.log(typeof response); ;-)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Read bug with id = 1; check if its status = open; check if this issue has been reported by user with id = 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Issue's status is open\", function () {",
+							"    pm.expect(response.status).to.be.equal(\"open\");",
+							"});",
+							"",
+							"pm.test(\"Selected issue is reported by user with id=1\", function () {",
+							"    pm.expect(response.id).to.be.equal(1);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Read bug contains '404' string; check if response contains 404 text string",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Issue's status is open\", function () {",
+							"    pm.expect(response[0].status).to.be.equal(\"open\");",
+							"});",
+							"",
+							"pm.test(\"Issue contains 404 text\", function () {",
+							"    pm.expect(pm.response.text()).to.include('404');",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs/?q=404",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "404"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Create new issue;",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 201', function () {",
+							"    pm.response.to.have.status(201);",
+							"})",
+							"",
+							"pm.test(\"Issue's status is open\", function () {",
+							"    pm.expect(response.status).to.be.equal(\"open\");",
+							"});",
+							"",
+							"pm.test(\"Issue contains 500 text\", function () {",
+							"    pm.expect(pm.response.text()).to.include('500');",
+							"});",
+							"",
+							"pm.globals.set(\"issueId\", response.id);",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n       \n        \"title\": \"500 server error appears while opening the page\",\n        \"description\": \"When I entering the page 'example.com I get 500 server error\",\n        \"emploeeId\": 997,\n        \"status\": \"open\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Create new issue; Check if new issue exists based on its id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Issue's status is open\", function () {",
+							"    pm.expect(response.status).to.be.equal(\"open\");",
+							"});",
+							"",
+							"pm.test(\"Issue contains 500 text\", function () {",
+							"    pm.expect(pm.response.text()).to.include('500');",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/{{issueId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"{{issueId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Create new issue; Update new issue; Check update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Issue's status is open\", function () {",
+							"    pm.expect(response.status).to.be.equal(\"open\");",
+							"});",
+							"",
+							"pm.test(\"Issue contains prank text\", function () {",
+							"    pm.expect(pm.response.text().toLowerCase()).to.include('prank');",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"When I entering the page 'example.com I get 500 server error. BRO IT IS PRANK!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/{{issueId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"{{issueId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Remove new issue; check if response body is empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('Response shold be empty', function () {",
+							"    pm.expect(response).to.be.empty;",
+							"})",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/{{issueId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"{{issueId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Check if new issue is removed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 404', function () {",
+							"    pm.response.to.have.status(404);",
+							"})",
+							"",
+							"pm.test('Response shold be empty', function () {",
+							"    pm.expect(response).to.be.empty;",
+							"})",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/{{issueId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"{{issueId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Get all employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('Response shold not be empty', function () {",
+							"    pm.expect(response).to.be.not.empty;",
+							"})",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Server with own db >> Create new employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"pm.test('Status code is 201', function () {",
+							"    pm.response.to.have.status(201);",
+							"})",
+							"",
+							"pm.test('Response should not be empty', function () {",
+							"    pm.expect(response).to.not.be.empty;",
+							"})",
+							"",
+							"pm.test('Correct email formatting', function () {",
+							"    pm.expect(response.email).to.be.a('string').and.to.match(/^.+@.+\\..+$/);",
+							"})",
+							"",
+							"pm.test('Correct phone formatting', function () {",
+							"    pm.expect(response.phone).to.match(/^\\d{3}-\\d{3}-\\d{4}$/);",
+							"});",
+							"",
+							"const PhoneWithoutDashes = response.phone.replace(/-/g, '');",
+							"",
+							"pm.test('Phone number contains only digits', function () {",
+							"    pm.expect(PhoneWithoutDashes).to.match(/^\\d+$/);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"function RandomZipCode() {",
+							"    ",
+							"    const digitX = Math.floor(Math.random() * 10);",
+							"    const digitY = Math.floor(Math.random() * 10);",
+							"    const digitZ = Math.floor(Math.random() * 10);",
+							"    const digitA = Math.floor(Math.random() * 10);",
+							"    const digitB = Math.floor(Math.random() * 10);",
+							"",
+							"",
+							"    const zipCode = `${digitX}${digitY}-${digitZ}${digitA}${digitB}`;",
+							"",
+							"    return zipCode;",
+							"    ",
+							"}",
+							"",
+							"function generateTaxId() {",
+							"    const sections = [",
+							"        getRandomDigits(3),",
+							"        getRandomDigits(3),",
+							"        getRandomDigits(2),",
+							"        getRandomDigits(2)",
+							"    ];",
+							"",
+							"    return sections.join('-');",
+							"}",
+							"",
+							"function getRandomDigits(length) {",
+							"    let digits = '';",
+							"    for (let i = 0; i < length; i++) {",
+							"        digits += Math.floor(Math.random() * 10);",
+							"    }",
+							"    return digits;",
+							"}",
+							"      ",
+							"",
+							"",
+							"",
+							"pm.variables.set('randomTaxId', generateTaxId());",
+							"",
+							"pm.variables.set('randomzipcode', RandomZipCode());",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"firstName\": \"Joe\",\n        \"lastName\": \"Em\",\n        \"username\": \"joem\",\n        \"email\": \"{{$randomEmail}}\",\n        \"phone\": \"{{$randomPhoneNumber}}\",\n        \"website\": \"{{$randomDomainName}}\",\n        \"role\": \"{{$randomJobTitle}}\",\n        \"type\": \"{{$randomJobType}}\",\n        \"address\": {\n            \"street\": \"{{$randomStreetName}}\",\n            \"suite\": \"{{$randomInt}}\",\n            \"city\": \"{{$randomCity}}\",\n            \"zipcode\": \"{{randomzipcode}}\"\n        },\n        \"company\": {\n            \"companyName\": \"{{$randomCompanyName}}\",\n            \"taxNumber\": \"{{randomTaxId}}\",\n            \"companyPhone\": \"{{$randomPhoneNumberExt}}\"\n        }\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
