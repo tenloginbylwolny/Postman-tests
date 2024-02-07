@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "XXX",
+		"name": "PC-1969 messages handler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "XXX"
+	},
+	"item": [
+		{
+			"name": "get all message from channel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"var length = console.log(response.data.length);\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is not empty\", function () {\r",
+							"\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].id).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Message is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].mesage).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"where_from is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].where_from).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"channel is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].channel).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"var type = typeof (response.data[0].is_read);\r",
+							"console.log(type);\r",
+							"pm.test(\"is_read is bool\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].is_read).to.be.an('boolean')\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"title is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].title).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"moment = require('moment');\r",
+							"pm.test(\"Date is present in YYYY-MM-DDTHH:mm:ss:sssZ format\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(moment(response.data[i].created_at, 'YYYY-MM-DDTHH:mm:ss:sssZ').isValid()).is.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages/channel/{{channel_name}}",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages",
+						"channel",
+						"{{channel_name}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all message from entire environment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"var length = console.log(response.data.length);\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is not empty\", function () {\r",
+							"\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].id).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Message is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].mesage).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"where_from is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].where_from).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"channel is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].channel).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"var type = typeof (response.data[0].is_read);\r",
+							"console.log(type);\r",
+							"pm.test(\"is_read is bool\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].is_read).to.be.an('boolean')\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"title is not empty\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(response.data[i].title).to.not.be.empty\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"moment = require('moment');\r",
+							"pm.test(\"Date is present in YYYY-MM-DDTHH:mm:ss:sssZ format\", function () {\r",
+							"    for (let i = 0; i = length - 1; i++) {\r",
+							"        pm.expect(moment(response.data[i].created_at, 'YYYY-MM-DDTHH:mm:ss:sssZ').isValid()).is.true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages/",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"moment = require('moment');\r",
+							"pm.test(\"Date is present in YYYY-MM-DDTHH:mm:ss:sssZ format\", function () {\r",
+							"        pm.expect(moment(response[0].created_at, 'YYYY-MM-DDTHH:mm:ss:sssZ').isValid()).is.true;\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is not empty\", function () {\r",
+							"        pm.expect(response[0].id).to.not.be.empty \r",
+							"});\r",
+							"\r",
+							"pm.test(\"where_from has entered string\", function () {\r",
+							"        pm.expect(response[0].where_from).to.have.string('iOS')\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"msg_id\", response[0].id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"Test. ignore please.\",\r\n    \"where_from\": \"iOS\",\r\n    \"is_read\": false,\r\n    \"channel\": \"prod\",\r\n    \"title\": \"Test. ignore please.\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set is read to true",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is not empty\", function () {\r",
+							"        pm.expect(response[0].is_read).to.be.true \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages/{{msg_id}}/read",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages",
+						"{{msg_id}}",
+						"read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get message by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is not empty\", function () {\r",
+							"\r",
+							"    \r",
+							"        pm.expect(response.id).to.not.be.empty\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Message is not empty\", function () {\r",
+							"    \r",
+							"        pm.expect(response.mesage).to.not.be.empty\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"where_from is not empty\", function () {\r",
+							"\r",
+							"        pm.expect(response.where_from).to.not.be.empty\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"channel is not empty\", function () {\r",
+							"   \r",
+							"        pm.expect(response.channel).to.not.be.empty\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"is_read is bool\", function () {\r",
+							"    \r",
+							"        pm.expect(response.is_read).to.be.an('boolean')\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"title is not empty\", function () {\r",
+							"        pm.expect(response.title).to.not.be.empty \r",
+							"});\r",
+							"\r",
+							"moment = require('moment');\r",
+							"pm.test(\"Date is present in YYYY-MM-DDTHH:mm:ss:sssZ format\", function () {\r",
+							"    \r",
+							"        pm.expect(moment(response.created_at, 'YYYY-MM-DDTHH:mm:ss:sssZ').isValid()).is.true;\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages/{{msg_id}}",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages",
+						"{{msg_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages/{{msg_id}}",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages",
+						"{{msg_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seriously removed?!",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"S E R I O U S L Y Removed (*_*)\", function () {\r",
+							"        pm.expect(response.message).to.have.string('Message not found')\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "mixed",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Store",
+						"value": "{{store}}",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{env}}.{{cph_url}}/messages/{{msg_id}}",
+					"protocol": "https",
+					"host": [
+						"{{env}}",
+						""{{product}}"",
+						"subproduct"
+					],
+					"path": [
+						"messages",
+						"{{msg_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "channel_name",
+			"value": "dev",
+			"type": "string"
+		},
+		{
+			"key": "msg_id",
+			"value": ""
+		},
+		{
+			"key": "CPH_URL",
+			"value": ""
+		},
+		{
+			"key": "ENV",
+			"value": ""
+		},
+		{
+			"key": "auth",
+			"value": ""
+		}
+	]
+}
