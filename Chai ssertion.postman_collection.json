@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "e2c46ae7-55e2-45d4-92c7-2aa82b2abbff",
+		"name": "Chai ssertion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16715649"
+	},
+	"item": [
+		{
+			"name": "Chai",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let odp = pm.response.json();\r",
+							"\r",
+							"//do celow porownania eql i equal:\r",
+							"\r",
+							"let UserA =\r",
+							"{\r",
+							"    \"name\": \"Test1\",\r",
+							"    \"username\": \"Test1\"\r",
+							"}\r",
+							"let UserB =\r",
+							"{\r",
+							"    \"name\": \"Test1\",\r",
+							"    \"username\": \"Test1\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp.length).to.equal(10);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp).to.have.lengthOf(10)\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp[0].username).to.not.be.empty\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp[0]).to.not.have.any.keys('password', 'confirm password');\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp).to.be.an('array');\r",
+							"});\r",
+							"// pm.test(\"Status code is 200\", function () {\r",
+							"//    pm.expect(odp).isArray(true, 'dziala');\r",
+							"// });\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp[0].username).to.be.a('string');\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp[0].email).to.include('@');\r",
+							"});\r",
+							"\r",
+							"// eql vs equal // equal sprawdza czy obiekty są identyczne, eql sprawdza czy wartości obiektów są identyczne\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp[0].email).to.equal(\"Sincere@april.biz\")\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(odp[0].email).to.eql(\"Sincere@april.biz\")\r",
+							"});\r",
+							"\r",
+							"// tutaj dobrze to widać\r",
+							"\r",
+							"//pm.test(\"Status code is 200\", function () {\r",
+							"//    pm.expect(UserA).to.eql(UserB)\r",
+							"//});\r",
+							"//pm.test(\"Status code is 200\", function () {\r",
+							"//    pm.expect(UserA).to.equal(UserB)\r",
+							"//});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"//for (let i = 0; i < odp.length; i++ ) { console.log(odp[i].name) };\r",
+							"\r",
+							"odp.forEach((user) =>{console.log(user.name);});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lodash",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let users  = pm.response.json();\r",
+							"console.log(typeof(_.map(users, 'address.street')));\r",
+							"let poszukiwany = _.find(users, {\"address\": {\"street\":\"Kulas Light\"}});\r",
+							"let every = _.every(users, 'id');\r",
+							"let cities = _.map(users, 'address.city');\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Każda wartość tablicy users posiada w polu email string i @\r",
+							"\r",
+							"pm.test(\"Status code is 200. Email field for each user is a string and has @ sign\", function () {\r",
+							"    _.each(users, (user) => {\r",
+							"       pm.expect(user.email).to.be.a('string');\r",
+							"       pm.expect(user.email).to.include('@');\r",
+							"    });\r",
+							"  \r",
+							"});\r",
+							"\r",
+							"// przynajmniej wartosc jedna w tablicy users posiada w zagniezdzeniu adresu wpis o miescie Gwenborough\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   _.each(users, (user) => {\r",
+							"      pm.expect(cities).to.include(\"Gwenborough\");\r",
+							"\r",
+							"   });\r",
+							" \r",
+							"});\r",
+							"\r",
+							"// sprawdza czy random number z przedzialu liczby ID uzytkownikow odpowiada ID uzytkownika\r",
+							"\r",
+							"let randomowy = (_.random(0,9));\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"\r",
+							"       pm.expect(users[randomowy].id).to.equal(randomowy+1);\r",
+							"       \r",
+							"    });\r",
+							"\r",
+							"// drugi sposób na randomowego usera to uzycie funkcji _.sample\r",
+							"\r",
+							"\r",
+							"//let randomuser = _.sample(users);\r",
+							"//console.log(randomuser);\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Sprawdza poszukiwany email dla wskazanego usera\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   \r",
+							"       pm.expect(poszukiwany.email).to.include('Sincere@april.biz');\r",
+							"      \r",
+							"    });\r",
+							"\r",
+							"//Sprawdza kazdy obiekt zagniezdzony w tablicy users, w polu email czy zawiera wskazany adres\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    \r",
+							"      pm.expect(_.map(users, 'email')).to.include(\"Sincere@april.biz\");\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// sprawdza czy kazdy user w  zmiennej every ma przypisane id \r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   \r",
+							"       \r",
+							"       pm.expect(every).to.be.true;\r",
+							"      \r",
+							"    });\r",
+							"\r",
+							"\r",
+							"    \r",
+							"    \r",
+							"  "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://jsonplaceholder.typicode.com/users",
+			"type": "string"
+		}
+	]
+}
