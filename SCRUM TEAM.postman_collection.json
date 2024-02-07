@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "831f75ad-78d7-48af-96a8-93c2980ead49",
+		"name": "SCRUM TEAM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16715649"
+	},
+	"item": [
+		{
+			"name": "Read all bugs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const zmienna = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Should return 5 bugs\", function () {\r",
+							"    pm.expect(zmienna.length).to.eql(5);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read one bug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const zmienna = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status should be open\", function () {\r",
+							"    pm.expect(zmienna.status).to.eql(\"in qa\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Employee id should be 1\", function () {\r",
+							"    pm.expect(zmienna.employeeId).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Full text search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const zmienna = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Should return 404\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('404');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new bug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const zmienna = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"New bug title should be TESTTTTT \", function () {\r",
+							"    pm.expect(zmienna.title).to.eql(\"TESTTTTT\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"TESTTTTT\",\r\n    \"description\": \"TESTSTSTTSS\",\r\n    \"employeeId\": 2,\r\n    \"status\": \"CLOSE\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update entire bug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const zmienna = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Read new status\", function () {\r",
+							"   pm.expect(zmienna.status).to.eql('in qa');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Incorrect response code after PATH to /bugs\",\r\n    \"description\": \"When I send a PATH request to /bugs, instead of status code 200, I'm getting 404\",\r\n    \"employeeId\": 1,\r\n    \"status\": \"in qa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update entire bug with patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const zmienna = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"New bug status should be in qa\", function () {\r",
+							"    pm.expect(zmienna.status).to.eql(\"in qa\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"status\": \"in qa\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/bugs/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete entire bug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bugs/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bugs",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
