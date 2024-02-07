@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "1437ced3-c5c9-4938-b815-b218e0ad9da5",
+		"name": "Analytics iPad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "XXX"
+	},
+	"item": [
+		{
+			"name": "Before Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response = JSON\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"text/plain; charset=utf-8\");",
+							"});",
+							"",
+							"pm.test(\"'text/plain' -> JSON\", function () {",
+							"    try {",
+							"        ",
+							"        var responseText = pm.response.text();",
+							"        ",
+							"        var lines = responseText.split(\"\\n\");",
+							"        ",
+							"        if (lines[0] === \"\") {",
+							"            lines.shift();",
+							"        }",
+							"        if (lines[lines.length - 1] === \"\") {",
+							"            lines.pop();",
+							"        }",
+							"        ",
+							"        var jsonData = [];",
+							"        ",
+							"        lines.forEach(function (line) {",
+							"            var trimmedLine = line.trim();",
+							"            jsonData.push(trimmedLine);",
+							"        });",
+							"       ",
+							"        pm.expect(jsonData).to.be.an(\"array\");",
+							"        pm.expect(jsonData.length).to.be.greaterThan(0);",
+							"        pm.environment.set(\"jsonDataArray\", JSON.stringify(jsonData));",
+							"    } catch (error) {",
+							"     ",
+							"        pm.expect.fail(\"Błąd podczas konwersji 'text/plain' na JSON\");",
+							"    }",
+							"pm.globals.set(\"ArrayLenBefore\",jsonData.length);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "XXX",
+					"protocol": "http",
+					"host": [
+						"91",
+						"107",
+						"207",
+						"179"
+					],
+					"port": "XXX",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "After Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response isn't JSON\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"text/plain; charset=utf-8\");",
+							"});",
+							"",
+							"pm.test(\"'text/plain' -> JSON\", function () {",
+							"    try {",
+							"        ",
+							"        var responseText = pm.response.text();",
+							"        ",
+							"        var lines = responseText.split(\"\\n\");",
+							"        ",
+							"        if (lines[0] === \"\") {",
+							"            lines.shift();",
+							"        }",
+							"        if (lines[lines.length - 1] === \"\") {",
+							"            lines.pop();",
+							"        }",
+							"        ",
+							"        var jsonData = [];",
+							"        ",
+							"        lines.forEach(function (line) {",
+							"            var trimmedLine = line.trim();",
+							"            jsonData.push(trimmedLine);",
+							"        });",
+							"       ",
+							"        pm.expect(jsonData).to.be.an(\"array\");",
+							"        pm.expect(jsonData.length).to.be.greaterThan(0);",
+							"        pm.globals.set(\"jsonDataArray\", JSON.stringify(jsonData));",
+							"    } catch (error) {",
+							"     ",
+							"        pm.expect.fail(\"Błąd podczas konwersji 'text/plain' na JSON\");",
+							"    }",
+							"pm.globals.set(\"ArrayLenAfter\",jsonData.length);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Before<After\", function () {",
+							"    pm.expect(Number(pm.globals.get(\"ArrayLenBefore\"))).to.be.lessThan(Number(pm.globals.get(\"ArrayLenAfter\")));",
+							"});",
+							"",
+							"// pm.test(\"jsonDataArray contains isManualExposure\", function() {",
+							"//     // Get the value of the global variable 'jsonDataArray'",
+							"//     const jsonDataArrayString = pm.globals.get(\"jsonDataArray\");",
+							"",
+							"//     // Parse the string into an array of objects",
+							"//     const jsonDataArray = JSON.parse(jsonDataArrayString);",
+							"",
+							"//     // Check if jsonDataArray is an array",
+							"//     pm.expect(jsonDataArray).to.be.an('array');",
+							"",
+							"//     // Check if isManualExposure flag is present in any element of the array",
+							"//     pm.expect(jsonDataArray.includes('camera.isManualExposure')).to.be.true;",
+							"// });",
+							"",
+							"pm.test(\"Response contains isManualExposure flag\", function () {",
+							"    const searchString = \"isManualExposure\"; ",
+							"    const responseBody = pm.response.text();",
+							"",
+							"    pm.expect(responseBody).to.include(searchString);",
+							"});",
+							"",
+							"pm.test(\"Response contains isManualWhiteBalance flag\", function () {",
+							"    const searchString = \"isManualWhiteBalance\"; ",
+							"    const responseBody = pm.response.text();",
+							"",
+							"    pm.expect(responseBody).to.include(searchString);",
+							"});",
+							"",
+							"pm.test(\"Response contains ShouldPrintReceipt flag\", function () {",
+							"    const searchString = \"ShouldPrintReceipt\"; ",
+							"    const responseBody = pm.response.text();",
+							"",
+							"    pm.expect(responseBody).to.include(searchString);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "XXX",
+					"protocol": "http",
+					"host": [
+						"91",
+						"107",
+						"207",
+						"179"
+					],
+					"port": "XXX",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "URL_Analytics",
+			"value": ""
+		},
+		{
+			"key": "port_analytics",
+			"value": ""
+		}
+	]
+}
