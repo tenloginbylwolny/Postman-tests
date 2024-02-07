@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "XYZ",
+		"name": "Current app version, basket and config check",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "XXX"
+	},
+	"item": [
+		{
+			"name": "appSession",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"//\r",
+							"console.log(response.data.minimalVersion);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.minimalVersion).to.equal(\"2.1.0\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PrintCubeApi/testy",
+						"type": "text"
+					},
+					{
+						"key": "x-pck",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "x-pcs",
+						"value": "{{session}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}session/start",
+					"host": [
+						"{{host}}session"
+					],
+					"path": [
+						"start"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OrderSession",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"//\r",
+							"console.log(response.data.minimalVersion);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.server.host).to.equal(\"https://{{CPH_env}}-api.{{CPH_url}}/\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PrintCubeApi/testy",
+						"type": "text"
+					},
+					{
+						"key": "x-pck",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "x-pcs",
+						"value": "{{session}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}session/start",
+					"host": [
+						"{{host}}session"
+					],
+					"path": [
+						"start"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketSummary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"//\r",
+							"console.log(response.data.total);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.total).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.subtotal).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.discount).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.fee).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.products).to.be.empty\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PrintCubeApi/testy",
+						"type": "text"
+					},
+					{
+						"key": "x-pck",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "x-pcs",
+						"value": "{{session}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}basket/summary",
+					"host": [
+						"{{host}}basket"
+					],
+					"path": [
+						"summary"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checkMoveBasket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"//\r",
+							"console.log(response.data.total);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.total).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.subtotal).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.discount).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.fee).to.equal(0);\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.expect(response.data.products).to.be.empty\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PrintCubeApi/testy",
+						"type": "text"
+					},
+					{
+						"key": "x-pck",
+						"value": "{{key}}",
+						"type": "text"
+					},
+					{
+						"key": "x-pcs",
+						"value": "{{session}}",
+						"type": "text"
+					},
+					{
+						"key": "Store",
+						"value": "a9948600-2349-11eb-a952-e302f39ea476",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}basket/move",
+					"host": [
+						"{{host}}basket"
+					],
+					"path": [
+						"move"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cube configure",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"setupid\" : \"default-config\"}"
+				},
+				"url": {
+					"raw": "http://10.140.140.186:9999/configure",
+					"protocol": "http",
+					"host": [
+						"10",
+						"140",
+						"140",
+						"186"
+					],
+					"port": "9999",
+					"path": [
+						"configure"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "ip",
+			"value": ""
+		},
+		{
+			"key": "port",
+			"value": ""
+		}
+	]
+}
