@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "197c3498-0039-47dc-9543-b703a0a5fcec",
+		"name": "OLX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16715649"
+	},
+	"item": [
+		{
+			"name": "Flooder",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Funkcja generująca losową liczbę o podanej długości",
+							"function generateRandomNumber(length) {",
+							"    let result = '';",
+							"    for (let i = 0; i < length; i++) {",
+							"        result += Math.floor(Math.random() * 10); // Losowa cyfra od 0 do 9",
+							"    }",
+							"    return result;",
+							"}",
+							"",
+							"// Ustawienie zmiennej o nazwie 'randomNumber' na wygenerowaną liczbę o długości 13",
+							"pm.environment.set(\"randomNumber\", generateRandomNumber(13));",
+							"",
+							"// Funkcja generująca losową liczbę w podanym zakresie",
+							"function generateRandomNumberInRange(min, max) {",
+							"    return Math.floor(Math.random() * (max - min + 1)) + min;",
+							"}",
+							"",
+							"// Ustawienie zmiennej o nazwie 'randomNumberInRange' na wygenerowaną liczbę w zakresie od 1 do 21",
+							"pm.environment.set(\"randomNumberInRange\", generateRandomNumberInRange(1, 21));",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "pl,en-US;q=0.7,en;q=0.3"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded; charset=UTF-8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache no-store"
+					},
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest"
+					},
+					{
+						"key": "Origin",
+						"value": "https://lecnts.sbs"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Sec-GPC",
+						"value": "1"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Referer",
+						"value": "https://lecnts.sbs/olx-pl/?tranzakt1702641805640"
+					},
+					{
+						"key": "Cookie",
+						"value": "PHPSESSID=ppac2jlv9kj4p1o619q1b8im6j4uig1e; captchaCheck=true; redirectHref=https://lecnts.sbs/olx-pl/?tranzakt1702641805640#selectedbank1; error_action=LOADER; LK_BANKS=null; loaderPage=load"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "TE",
+						"value": "trailers"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "url=https%3A%2F%2Ftemplatenodejs.buzz%2Fbotkkk%2FsendDataLKaction&paramsurl=sendDataLKaction&lk%5Bpin%5D=1111&lk%5Bpesel%5D=1212121212&lk%5Bmother%5D=TWOJSTARY&lk%5Bpsw%5D=CHUJWAMWDUPE&lk%5Blogin%5D=CHUJWAMWDUPE&lk%5Baction%5D=not_action&userAgent=Mozilla%2F5.0+(Macintosh%3B+Intel+Mac+OS+X+10.15%3B+rv%3A120.0)+Gecko%2F20100101+Firefox%2F120.0&browser=Mozilla&osdev=Mac&mobdev=&sessionUID=17026418056404go85ji1eeqdj52q033t5n546jjk9gcs1702645449&keyParams=successdata&getAdId=1702641805640&idChatidGet=5205387948&idProdidGet=884646746&platform=OLX&countryDb=PL&price=830+z%C5%82&idBankSelect=1&typeDevice=&cooikies=test&seckretKeyPost=olkzipzetmpjlbjftrkyglpochsbvuhh&countryMamont=Poland&ipMamont=77.65.87.152"
+				},
+				"url": {
+					"raw": "https://lecnts.sbs/olx-pl/?tranzakt{{randomNumber}}#selectedbank{{randomNumberInRange}}",
+					"protocol": "https",
+					"host": [
+						"lecnts",
+						"sbs"
+					],
+					"path": [
+						"olx-pl",
+						""
+					],
+					"query": [
+						{
+							"key": "tranzakt{{randomNumber}}",
+							"value": null
+						}
+					],
+					"hash": "selectedbank{{randomNumberInRange}}"
+				}
+			},
+			"response": []
+		}
+	]
+}
